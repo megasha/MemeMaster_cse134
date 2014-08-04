@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta  charset = "utf-8" />
+    <title>Meme Master</title>
+
+
+
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/flat-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/star-rating.css"/>
+    <script src="assets/js/angular.min.js"></script>
+
+    <!-- Load JS here for greater good =============================-->
+    <script src="assets/js/jquery-1.8.3.min.js"></script>
+    <script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.tagsinput.js"></script>
+    <script src="assets/js/bootstrap-select.js"></script>
+    <script src="assets/js/bootstrap-switch.js"></script>
+    <script src="assets/js/flatui-checkbox.js"></script>
+    <script src="assets/js/flatui-radio.js"></script>
+    <script src="assets/js/jquery.placeholder.js"></script>
+    <script src="assets/js/star-rating.js"></script>
+    <script src="assets/js/application.js"></script>
+    <script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+
+
+    <script>
+        
+		var myDataRef = new Firebase('https://mememaster-group6.firebaseio.com');
+        var MyData;
+        if (window.sessionStorage.data) {
+            MyData = JSON.parse(window.sessionStorage.data);
+
+            for(var i=0; i<MyData.length;i++){
+                MyData.items[i].id = i+1;
+            }
+        }
+        else {
+            var MyData = [
+
+                {
+                    id: 1,
+                    meme_name: "Bad Luck Brian",
+                    url: "http://img.photobucket.com/albums/v730/Matt-Suter/meme/bad_luck_brian_by_bekka72798-d5gqa5l_zpse671f6bc.jpg",
+                    date: new Date(),
+                    comment: "really funny!",
+                    tags: "Hilarious, Rude",
+                    rating: '4'
+                },
+                {
+                    id: 2,
+                    meme_name: "Good Guy Greg",
+                    url: "http://imgur.com/jOkQe.jpg",
+                    date: new Date(),
+                    comment: "I laughed",
+                    tags: "Funny, Nice",
+                    rating: '3'
+                },
+                {
+                    id: 3,
+                    meme_name: "Bad Luck Brian",
+                    url: "http://badassmemes.com/wp-content/uploads/2013/10/gets-something-positive.jpg",
+                    date: new Date(),
+                    comment: "This one is alright",
+                    tags: "Hilarious, Funny",
+                    rating: '2'
+                },
+                {
+                    id: 4,
+                    meme_name: "Bad Luck Brian",
+                    url: "http://memes.onlinememegenerator.com/memes/Bad-Luck-Brian/245250c195c02cf/Bad-Luck-Brian-meme-245250c195c02cf.jpg",
+                    date: new Date(),
+                    comment: "This one is really funny",
+                    tags: "Awesome, Cool",
+                    rating: '5'
+                },
+                {
+                    id: 5,
+                    meme_name: "Socially Awkward Penguin",
+                    url: "http://38.media.tumblr.com/b0428b636e37c59423d5eb7afd782e59/tumblr_mssyl1bJah1qa1crjo1_500.png",
+                    date: new Date(),
+                    comment: "This one is funny",
+                    tags: "Cool , Awesome, Hilarious, Awkward",
+                    rating: '4'
+                },
+                {
+                    id: 6,
+                    meme_name: "Drunk Baby",
+                    url: "http://s2.quickmeme.com/img/50/5037d1be80d8c6f83e17a5c7940506864ecdd318c478ca5c064b5581cb3df2e7.jpg",
+                    date: new Date(),
+                    comment: "funny!",
+                    tags: "Funny, Baby, Drunk",
+                    rating: '4'
+                },
+                {
+                    id: 7,
+                    meme_name: "Kermit",
+                    url: "http://weknowmemes.com/wp-content/uploads/2012/08/most-interesting-kermit-meme.jpg",
+                    date: new Date(),
+                    comment: "This one made me chuckle",
+                    tags: "Hilarious, Rude",
+                    rating: '3'
+                },
+                {
+                    id: 8,
+                    meme_name: "Bad Luck Brian",
+                    url: "http://memes.onlinememegenerator.com/memes/Bad-Luck-Brian/185250abc007931/Bad-Luck-Brian-meme-185250abc007931.jpg",
+                    date: new Date(),
+                    comment: "I used to like this one",
+                    tags: "Mean, Funny",
+                    rating: '2'
+                }
+            ];
+        }
+
+        var MyCountID = MyData.length + 1;
+
+    </script>
+</head>
+<body  ng-app="demo">
+
+<div ng-controller="DemoCtrl">
+    <header>
+        <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-header">
+            <div class="row">
+             <div class="col-sm-2 hidden-sm hidden-xs">
+                <a href="index.html" class="navbar-brand">Meme Master</a>
+             </div>
+               <div class="col-sm-2 hidden-md hidden-xlg hidden-lg">
+                <a href="index.html" class="navbar-brand small-brand">Meme Master</a>
+             </div>
+            <form role="search" class="navbar-form">
+                    <div class="col-sm-3 form-group pull-left hidden-sm hidden-xs ">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="search" size="45" placeholder="Search for a meme" id="search-query-3">
+                            <span class="input-group-btn">
+                            <button type="submit" class="btn"><span class="fui-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1 form-group pull-left hidden-md hidden-lg hidden-xlg">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="search" size="10" placeholder="Search for a meme" id="search-query-3">
+                            <span class="input-group-btn">
+                            <button type="submit" class="btn"><span class="fui-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
+
+                <div class="col-sm-3 hidden-xs hidden-sm hidden-md">
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-primary dropdown-toggle clearfix btn-info" data-toggle="dropdown">Sort By:<span class="caret"></span></button>
+                        <span class="dropdown-arrow dropdown-arrow-inverse"></span>
+                        <ul class="dropdown-menu dropdown-inverse">
+                            <li><a ng-click="setOrder('meme_name')">Name</a></li>
+                            <li><a ng-click="setOrder('-id')">Newest</a></li>
+                            <li><a ng-click="setOrder('id')">Oldest</a></li>
+                            <li><a ng-click="setOrder('-rating')">Highest Rating</a></li>
+                            <li><a ng-click="setOrder('rating')">Lowest Rating</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-2 hidden-xs hidden-sm hidden-md">
+                    <div class="pull-center">
+                    <button id="uploadModalBtn" class="btn btn-inverse" data-toggle="tooltip" data-placement="bottom" title="Create new Meme" ><i class="fa fa-plus"></i>Upload Meme</button>
+                    </div>
+                </div>
+                <div class="col-sm-1 hidden-xs hiddem-sm hidden-md">
+                    <div class="pull-right">
+                    <button id="uploadCloud" class="btn btn-inverse" ng-click="uploadCloud()" data-toggle="tooltip" data-placement="bottom" title="Upload From Extension"><i class="fa fa-cloud-upload"></i></button>
+                    </div>   
+                </div>
+                <script>         
+
+                    $('#uploadModalBtn').click(function(){
+                        window.location.href = "#openModalAdd";
+                    })
+
+
+                </script>
+            </form>
+            </div>
+            </div>
+        </nav>
+    </header>
+<br>
+<br>
+<br>
+
+    <div id="openModalAdd" class="modalDialog">
+        <div>
+            <a href="#closeModalAdd" title="Close" class="close">X</a>
+            <h4>Upload a Meme</h4>
+           <!-- <table>
+                <tr>
+                    <td>
+                        <label class="radio"><input type="radio" name="group1" value="1" data-toggle="radio" checked>
+                            From the website
+                        </label>
+                    </td>
+                   <td>
+                        <label class="radio"><input type="radio" name="group1" value="2" data-toggle="radio">
+                            From the local hard drive
+                        </label>
+                    </td>
+                    <script>
+                        $( window ).load(function() {
+                            $('#div1').hide();
+                        });
+
+
+                        $(':radio').on('toggle', function() {
+                            if (this.name == "group1")
+                            {
+                                if (this.value==1)
+                                {
+                                    $('#div1').hide();
+                                    $('#div2').show();
+                                }
+                                else
+                                {
+                                    $('#div1').show();
+                                    $('#div2').hide();
+                                }
+                            }
+                        });
+                    </script>
+                </tr>
+            </table>-->
+            <div class="modal-body">
+              <!--  <div id="div1">
+                    <p>File<input id="txtFile" type="file" class="form-control" /></p>
+                </div> -->
+                <div id="div2">
+                    <p>URL<input id="txtURL" type="text" placeholder="Enter URL" class="form-control" /></p>
+                </div>
+                <p>Name of Meme: <input id="txtName" class="form-control" placeholder="Enter Meme Name"></p>
+                <p>Rating:<input id="txtRating" value="0" type="number" data-show-clear="false" data-show-caption="false" class="rating" min=0 max=5 step=0.5 data-size="xs"></p>
+                <p>Comments:<textarea id="txtComment" rows="3" cols="50" class="form-control"  placeholder="Your thoughts..."></textarea></p>
+                <p>Tags<input id="txtTag_tagsinput" class="tagsinput"></p>
+                <p><input id="addBtn" type="button" value="Add" class="btn btn-inverse" ng-click="Add();">
+                <a href="#closeModalAdd"><input type="button" value="Cancel" class="btn btn-inverse" ></a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="openModalEdit" class="modalDialog">
+        <div>
+
+
+            <div class="modal-body">
+                <a href="#closeModalEdit" title="Close" class="close">X</a>
+                <input id="txtIDEdit" type="hidden">
+                <h4>Name<input id="txtNameEdit" class="form-control"/></h4>
+                <img id="imgMeme"></img>
+                <p>Rating:<input id="txtRatingEdit" value="0" type="number" data-show-clear="false" data-show-caption="false" class="rating" min=0 max=5 step=0.5 data-size="xs"></p>
+                <p>Tags<input id="txtTagEdit" class="tagsinput"></p>
+                <p>Comment<textarea id="txtCommentEdit" rows="2" cols="50" class="form-control" maxlength=""></textarea></p>
+                <p><input type="button" value="Update" class="btn btn-inverse" ng-click="Save()">
+                    <a href="#closeModalAdd"><input type="button" value="Cancel" class="btn btn-inverse" ></a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="openModalDelete" class="modalDialog">
+        <div>
+
+
+            <div class="modal-body">
+                <a href="#closeModalDelete" title="Close" class="close">X</a>
+                <h4><i class="fa fa-trash-o"></i>Delete Meme</h4>
+                <hr>
+                <p>Are you sure you want to delete this meme?</p>
+                 <a ng-click="Delete();"><input type="button" value="Delete" class="btn btn-inverse" ></a>
+                 <a href="#closeModalDelete"><input type="button" value="Cancel" class="btn btn-inverse" ></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="openModalSession" class="modalDialog">
+        <div>
+
+
+            <div class="modal-body">
+                <a href="#closeModalDelete" title="Close" class="close">X</a>
+                <h4><i class="fa fa-floppy-o"></i>Memes Saved to Session Storage</h4>
+                <hr>
+                <p>Your Memes have been saved to the session storage.</p>
+				 <!--<a ng-click="Refresh();"><input type="button" value="Refresh" class= "btn- btn-inverse" ></a>-->
+                 <a ng-click="Refresh();"><input type="button" value="Close" class="btn btn-inverse" ></a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+    <div ng-repeat="item in items | filter:search | orderBy: selected" class="item">
+        <div  class="col-xs-3 meme-tile">
+            <div class="tile">             
+                <div class="row">
+                    <div class="truncated-name pull-left">
+                        <h7>{{item.meme_name}}</h7>
+                    </div>
+                    <div class="edit-delete pull-right">
+                        <h7>
+                        <a ng-click="Edit(item.id)"><i class="fa fa-pencil-square-o"></i></a>
+                        <a ng-click="OpenDeleteModal(item.id)"><i class="fa fa-trash-o"></i></a>
+                        </h7>
+                    </div>
+                </div>
+                <hr>
+                <div class="image-block">
+                <img src="{{item.url}}" class="img-responsive">
+                </div>
+                 <hr>
+                <b>Rating: </b> {{item.rating}} of 5
+                <br>
+                <b>Your Thoughts: </b>{{item.comment}}
+                <br>
+                <b>Tags: </b> {{item.tags}}
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+        <div id="footer">
+            <a class="team-site" href="teampage.html">Team Site</a>
+            <br/>
+            <span class="team-name">Team Me & Me</span>
+        </div>
+
+
+</body>
+
+</html>
+
+<script>
+
+
+
+    angular.module('demo', ['ui.listview'])
+            .controller('DemoCtrl', ['$scope', function($scope){
+                $scope.items = MyData;
+
+                $scope.sortOptions = [
+                    { name: 'Sort by: Meme Name', value: 'meme_name' },
+                    { name: 'Sort by: Highest Rating', value: '-rating' },
+                    { name: 'Sort by: Lowest Rating', value: 'rating' }
+                ];
+
+                $scope.selected = 'meme_name';
+                $scope.deleteId = '';
+
+                $scope.setOrder = function (order) {
+                    $scope.selected = order;
+                }
+
+                $scope.Add = function() {
+
+                    //alert(document.getElementById("txtFile"));
+                    var item = {
+                        id: MyCountID++,
+                        meme_name: $('#txtName').val(),
+                        url: $('#txtURL').val(),
+                        date: new Date(),
+                        comment: $('#txtComment').val(),
+                        tags: $('#txtTag_tagsinput').val(),
+                        rating: $('#txtRating').val()
+                    };
+
+                    $scope.items.push(item);
+                    $('#txtName').val('');
+                    $('#txtURL').val('');
+                    var tagList = $('#txtTag_tagsinput').val().split(',');
+                    for (var i=0; i< tagList.length; i++)
+                    {
+                        $('#txtTag_tagsinput').removeTag(tagList[i]);
+                    }
+                    $('#txtComment').val('');
+                    $('#txtRating').val('');
+
+                    $('input.rating').rating('reset');
+                    window.location.href = "#closeModalAdd";
+
+                };
+
+                $scope.Edit = function(myID) {
+                    var i=0;
+                    for (i=0; i < $scope.items.length; i++)
+                    {
+                        if ($scope.items[i].id == myID)
+                        {
+                            break;
+                        }
+                    }
+
+                    $('#imgMeme').attr('src', $scope.items[i].url);
+                    $('#txtNameEdit').val($scope.items[i].meme_name);
+                    $('#txtIDEdit').val(myID);
+                    $('#txtTagEdit').importTags($scope.items[i].tags.toString());
+                    $('#txtCommentEdit').val($scope.items[i].comment);
+                    $('#txtRatingEdit').rating('update', $scope.items[i].rating);
+
+                    window.location.href = "#openModalEdit";
+                };
+
+                $scope.Save = function() {
+                    var myID = $('#txtIDEdit').val();
+                    var i=0;
+                    for (i=0; i < $scope.items.length; i++)
+                    {
+                        if ($scope.items[i].id == myID)
+                        {
+                            break;
+                        }
+                    }
+
+                    $scope.items[i].meme_name = $('#txtNameEdit').val();
+                    $scope.items[i].comment = $('#txtCommentEdit').val();
+                    $scope.items[i].tags = $('#txtTagEdit').val();
+                    $scope.items[i].rating = $('#txtRatingEdit').val().toString();
+
+                    var tagList = $('#txtTagEdit').val().split(',');
+                    for (var i=0; i< tagList.length; i++)
+                    {
+                        $('#txtTagEdit').removeTag(tagList[i]);
+                    }
+
+                    $('input.rating').rating('reset');
+                    window.location.href = "#closeModalEdit";
+
+                };
+				
+				$scope.Refresh = function()
+				{
+				   window.location.href = "#closeModalDelete";
+				   myDataRef.remove();
+				}
+				 
+                $scope.Delete = function() {
+                   
+                        var i=0;
+                        for (i=0; i < $scope.items.length; i++)
+                        {
+                            if ($scope.items[i].id == $scope.deleteId)
+                            {
+                                break;
+                            }
+                        }
+
+                        $scope.items.splice(i, 1);
+                        $scope.deleteId = '';
+
+                        window.location.href = "#closeModalDelete";
+                };
+
+                $scope.OpenDeleteModal = function(myID) {
+                    $scope.deleteId = myID;
+                     window.location.href = "#openModalDelete";
+                };
+                
+                
+                $scope.uploadCloud = function(){
+                    myDataRef.once('value', function(snapshot){
+		       snapshot.forEach(function(childSnapshot){
+                          var temp = childSnapshot.val();
+                          temp.id = MyCountID++;
+                          $scope.items.push(temp);
+                       });
+		    });
+                   
+		    window.location.href = "#openModalSession";
+                };
+               
+
+            }]);
+
+    angular.module('ui.listview', [])
+            .directive("listview", ['$compile', '$interpolate','$templateCache', function($compile, $interpolate, $templateCache) {
+                return {
+                    restrict: "EA",
+                    transclude: false,
+                    scope: {
+                        listviewId:"@listview",
+                        items: "=",
+                        methods: "="
+                    },
+                    templateUrl: function(element, attrs) {
+                        if(!attrs.template && !attrs.templateBase) return 'listview.html';
+                        attrs.template = attrs.template || 'listview.html';
+                        if(!attrs.templateBase) return attrs.template;
+                        var path = attrs.templateBase;
+                        if (path.substr(path.length - 1, 1) != "/") path += "/";
+                        path += attrs.template;
+                        return path;
+                    },
+                    link: function(scope, element, attrs){
+                        attrs.$observe('columns', function(val){
+                            scope.columns = val.replace(/ /g,'').split(',');
+                        });
+                    },
+                    controller: function($scope, $interpolate, $compile, $templateCache){
+
+
+                    }
+                };
+            }])
+            .filter('capitalize', function () {
+                "use strict";
+                return function (input) {
+                    return input.charAt(0).toUpperCase() + input.slice(1);
+                }
+            });
+
+</script>
+

@@ -1,0 +1,150 @@
+
+            
+            /* #header {
+            position: relative;
+            top: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #F0EDEC;
+            vertical-align: center;
+            font-size: 24px;
+            } */
+
+            body {
+                background-color: #ECF0F1;
+            }
+
+            #footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #34495e;
+            text-align: center;
+            font-size: 12px;
+            padding-top: 10px;
+            }
+            
+            .modalDialog {
+            position: fixed;
+            font-family: Arial, Helvetica, sans-serif;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 99999;
+            opacity:0;
+            -webkit-transition: opacity 400ms ease-in;
+            -moz-transition: opacity 400ms ease-in;
+            transition: opacity 400ms ease-in;
+            pointer-events: none;
+            }
+            
+            .modalDialog:target {
+            opacity:1;
+            pointer-events: auto;
+            }
+            
+            .modalDialog > div {
+            width: 600px;
+            position: relative;
+            margin: .5% auto;
+            padding: 10px 10px 10px 10px;
+            border-radius: 10px;
+            background-color: #ECF0F1;
+             max-height: 99%;
+             overflow-y: auto;
+
+            } 
+
+            .team-name {
+                  color: #fff;
+            }
+
+            td {
+                text-align: center;
+                padding: 10px 10px;
+            }
+
+            #box {
+                margin: 0 auto;
+                position: relative;
+                border: 1px solid black;
+                padding: 10px;
+                width: 600px;
+
+            }
+            #listbox {
+                position: relative;
+                border: 1px solid black;
+                padding: 10px;
+                width: 100%;
+            }
+  
+            .meme-tile {
+                min-width: 280px;
+                margin-bottom: 75px;
+                font-size: 14px;
+            }
+
+            .tile {
+                text-align: left;
+                background-color: #BDC3C7;
+                height: 500px;
+            }
+
+            h7 {
+                font-size: 20px;
+            }
+/*
+            #memes {
+                margin-bottom: 300px;
+            }
+            */
+
+            i {
+                padding-right: 3px;
+            }
+
+            img{
+                width: auto; /* you can use % */
+                max-height: 200px;
+                display:block;
+                margin:auto;
+            }
+
+           select {
+               font-size: 14px;
+           }
+
+            .truncated-name {
+                padding-left: 20px;
+                display: inline-block;
+                max-width: 180px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .edit-delete {
+                padding-right: 15px;
+            }
+
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+            .image-block {
+                width: auto;
+                height: 200px;
+            }
+
+            #imgMeme {
+                width: auto; /* you can use % */
+                max-height: 300px;
+            }
+
+            .small-brand {
+                font-size: 14px;
+            }
